@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root=dirname(dirname(fileURLToPath(import.meta.url)));
+test('manifest is an ordinary declarative Skill package',()=>{const manifest=JSON.parse(readFileSync(join(root,'ipollowork.plugin.json')));assert.equal(manifest.schemaVersion,2);assert.equal(manifest.source.trusted,false);assert.deepEqual(manifest.resources.map(r=>r.path),['skills/review-resolution-brief']);assert.equal('permissions' in manifest,false);});
+test('package has exactly the documented installer contents',()=>{execFileSync('node',['package.mjs'],{cwd:root});const listing=execFileSync('unzip',['-Z','-1','dist/review-resolution-brief-1.0.1.ipollowork-plugin'],{cwd:root,encoding:'utf8'}).trim().split('\n').sort();assert.deepEqual(listing,['ipollowork.plugin.json','skills/review-resolution-brief/SKILL.md','skills/review-resolution-brief/references/decision-rules.md','skills/review-resolution-brief/references/output-format.md']);});
+test('example records a verification gap without inventing a resolution',()=>{const expected=readFileSync(join(root,'examples/expected-brief.md'),'utf8');assert.match(expected,/CR-22/);assert.match(expected,/needs-verification/);assert.doesNotMatch(expected,/resolved thread/i);});
