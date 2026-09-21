@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 2,
+  "id": "review-resolution-brief",
+  "name": "Review Resolution Brief / 审查闭环简报",
+  "description": "Turn code-review comments and implementation evidence into a verification-ready handoff.",
+  "category": "Development & Testing",
+  "source": { "format": "ipollowork-extension-manifest", "origin": "local", "trusted": false, "reference": "https://github.com/Sevaschan/review-resolution-brief" },
+  "composer": { "prompt": "Use review-resolution-brief and its references to prepare a verification-ready handoff from the supplied review packet. Preserve comment IDs and do not claim unresolved threads are closed." },
+  "package": {
+    "version": "1.0.1",
+    "publisher": { "id": "sevaschan", "name": "Sevaschan" },
+    "updateId": "sevaschan/review-resolution-brief",
+    "compatibility": { "ipollowork": "0.50.12" }
+  },
+  "resources": [
+    { "type": "skill", "id": "review-resolution-brief", "label": "Review Resolution Brief", "description": "Create a traceable verification handoff from review comments and evidence.", "path": "skills/review-resolution-brief", "required": true }
+  ],
+  "localization": {
+    "defaultLocale": "en",
+    "translations": {
+      "zh-CN": {
+        "name": "审查闭环简报",
+        "description": "把审查意见和验证证据整理成可追溯的复审交接文档。",
+        "category": "开发与测试",
+        "composer": { "prompt": "使用审查闭环简报及其参考文件，根据提供的审查包生成复审交接文档；保留意见 ID，不能声称未关闭的讨论串已关闭。" },
+        "resources": {
+          "review-resolution-brief": {
+            "label": "审查闭环简报",
+            "description": "从审查意见和证据生成可追溯的复审交接文档。"
+          }
+        }
+      }
+    }
+  }
+}
